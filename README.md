@@ -1,3 +1,11 @@
+**Welcome to my Github Page**
+*Table of Contents*
+1. Creating an Arch Linux Installation
+2. Setting up Docker
+
+
+**1. Creating an Arch Linux Installation**
+
 **Downloading The ISO**
 1. Download the Arch ISO off of the wiki, in this case use *Adectra*.
 2. [Index of /archlinux/iso/2024.10.01/](https://mirror.adectra.com/archlinux/iso/2024.10.01/)
@@ -167,3 +175,9 @@
 
 **Congrats!**
 And with that, you have finished a simple install of Arch Linux with plenty of bells and whistles!
+
+
+
+
+**2. Setting up Docker**
+
