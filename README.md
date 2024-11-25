@@ -175,11 +175,13 @@
 
 **Congrats!**
 And with that, you have finished a simple install of Arch Linux with plenty of bells and whistles!
-
-
-
-
+  
+  
+  
 **2. Setting up Docker**
+    
+
+  
 
 **Install Docker and Compose**
 *This documentation is for Ubuntu*
