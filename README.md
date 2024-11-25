@@ -2,6 +2,7 @@
 *Table of Contents*
 1. Creating an Arch Linux Installation
 2. Setting up Docker
+3. Creating a Wireguard Server
 
 
 **1. Creating an Arch Linux Installation**
@@ -200,6 +201,89 @@ And with that, you have finished a simple install of Arch Linux with plenty of b
 
 4. Congrats, you now have a container running Openvas, feel free to mess around and learn the program!
 
+    
+   
+     
+**Creating a Wireguard Server**
+1. Setup Your Server
+ Sign up for DigitalOcean using this link: [DigitalOcean | Cloud Infrastructure for Developers](https://www.digitalocean.com/?refcode=d33d59113ab6&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=CopyPaste). This will allow you to get 200 dollars of credit which will be enough to set up wireguard for the context of this lab.  
+ Next, you will need to create a droplet, `buy the $6 one, Ubuntu 24.04, Basic, Regular Intel CPU, Normal SSD`. You can also set up SSH or a password, or use the online console for the case of this guide. 
+ 
+2. Get Wireguard set up
+Run these commands to get everything ready to run Wireguard.
+> `mkdir -p ~/wireguard/
+   `mkdir -p ~/wireguard/config/
+   `nano ~/wireguard/docker-compose.yml`
 
+3. Set up the `docker-compose file`
+After running the pervious commands you have created the file, paste this into Nano in order to get it set up.
+*Note: You might need to change your timezone and you will for sure need to change the SERVERURL. You can find the server IP in Digitalocean to paste in this field.*
 
+>version: '3.8'
+>services:
+  wireguard:
+    container_name: wireguard
+    image: linuxserver/wireguard
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Chicago
+      - SERVERURL=1.2.3.4
+      - SERVERPORT=51820
+      - PEERS=pc1,pc2,phone1
+      - PEERDNS=auto
+      - INTERNAL_SUBNET=10.0.0.0
+    ports:
+      - 51820:51820/udp
+    volumes:
+      - type: bind
+        source: ./config/
+        target: /config/
+      - type: bind
+        source: /lib/modules
+        target: /lib/modules
+    restart: always
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE
+    sysctls:
+      - net.ipv4.conf.all.src_valid_mark=1
 
+4.  Install Docker
+Run these commands to quickly install Docer and docker-compose to finish this lab.
+> `sudo apt install apt-transport-https ca-certificates curl software-properties-common -y`
+> 
+> `curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -`
+> 
+> `sudo add-apt-repository \
+   `"deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+   `$(lsb_release -cs) \
+   `stable"
+   >
+> `apt-cache policy docker-ce`
+> 
+> `sudo apt install docker-ce -y`
+
+5. Install Compose
+This is an addon for Docker which is necessary to finish this lab. Run these commands to install it.
+> `sudo curl -L "https://github.com/docker/compose/releases/download/1.27.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose`
+> 
+> `sudo chmod +x /usr/local/bin/docker-compose`
+
+6. Start Wireguard
+Now you will need to start up Wireguard!
+> `cd ~/wireguard/`
+> `docker-compose up -d`
+
+7. Set up Wireguard on a phone
+Download the Wireguard app, from here you can scan the QR code given to you by typing in the command.
+> `docker-compose logs -f wireguard`
+From here you can check `ipleak.net` to make sure your IP switched!
+
+8. Set up Wireguard on a laptop
+Download Wireguard from this link: `https://www.wireguard.com/install/`.
+From here, download the config file, you can find this file using this command.
+>`cd ~wireguard/config/wg_confs`
+Now just download the file, put it on Wireguard, and everything should work.
+
+**Congrats, you should have a Wireguard srver going!**
