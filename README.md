@@ -181,3 +181,23 @@ And with that, you have finished a simple install of Arch Linux with plenty of b
 
 **2. Setting up Docker**
 
+**Install Docker and Compose**
+*This documentation is for Ubuntu*
+1. Install Docker and ensure it has Docker Compose.
+> `sudo apt install docker.io`
+> `sudo apt update`
+> `sudo apt install docker-compose-plugin`
+
+2. Get docker running.
+> `sudo service docker start`
+> `sudo docker run -d -p 443:443 --name openvas mikesplain/openvas`
+
+3. Go to Openvas
+>`On a web browser, go to https://localhost`
+>Username and password are both `admin`
+
+4. Congrats, you now have a container running Openvas, feel free to mess around and learn the program!
+
+
+
+
