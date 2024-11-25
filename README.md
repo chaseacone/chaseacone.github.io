@@ -204,7 +204,7 @@ And with that, you have finished a simple install of Arch Linux with plenty of b
     
    
      
-**Creating a Wireguard Server**
+**3. Creating a Wireguard Server**
 1. Setup Your Server
  Sign up for DigitalOcean using this link: [DigitalOcean | Cloud Infrastructure for Developers](https://www.digitalocean.com/?refcode=d33d59113ab6&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=CopyPaste). This will allow you to get 200 dollars of credit which will be enough to set up wireguard for the context of this lab.  
  Next, you will need to create a droplet, `buy the $6 one, Ubuntu 24.04, Basic, Regular Intel CPU, Normal SSD`. You can also set up SSH or a password, or use the online console for the case of this guide. 
